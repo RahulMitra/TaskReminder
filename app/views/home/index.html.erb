@@ -1,0 +1,83 @@
+<div class="container">
+
+  <!-- hero unit -->
+  <div class="hero-unit" style = "padding-top: 20px; width: 950px;">
+    <h1 style = "font-size: 80px">Tasks:</h1>
+	<hr/>
+	<br/>
+	<table cellspacing="5" cellpadding="20">
+		
+		<% sorted_activities = @activities.sort { |a,b| (Time.now.getlocal.to_date.mjd - b.time.mjd) - b.time_out <=>
+														(Time.now.getlocal.to_date.mjd - a.time.mjd) - a.time_out } %>
+ 		<% sorted_activities.each do |activity| %>
+			
+			<% days_since_completion = Time.now.getlocal.to_date.mjd - activity.time.mjd %>
+			<% days_overdue = days_since_completion - activity.time_out %>			
+			
+			<tr>
+				<td>
+					
+					<div class="modal hide" id="myModal<%=activity.id%>">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal">×</button>
+					    <h3>Confirmation for <%= activity.name %></h3>
+					  </div>
+					  <div class="modal-body">
+					    <p>Are you sure you completed <%= activity.name %>?</p>
+					  </div>
+					  <div class="modal-footer">
+						
+						<%= link_to "Yes, I completed #{activity.name}", 	{:controller => 'home', :action => 'update', :id => activity.id, :method => "get"},
+																			{:class => "btn btn-primary" } %>
+						<a href="#" class="btn" data-dismiss="modal">No, close</a>
+						
+					  </div>
+					</div>
+										
+					<% if days_overdue >= 0 %>
+						<a class= "btn btn-danger btn-large" style="font-size: 40px" data-toggle="modal" href="#myModal<%=activity.id%>"><%= activity.name %></a>
+
+					<% else %>
+						<a class= "btn btn-info btn-large" style="font-size: 40px" data-toggle="modal" href="#myModal<%=activity.id%>"><%= activity.name %></a>
+																							
+					<% end %>
+				</td>
+				<td>
+					<p>	Last Completed: <b> <%= formatDay(activity.time) %> </b> <span style = "opacity: 0;">-</span>
+					
+					
+					<% if days_overdue >= 0 %>
+						<font color = "red">
+					<% else %>
+						<font color = "1F0F7A">
+					<% end %>
+							<span style = "opacity: .85;"><i><% if days_since_completion == 0 %>Today<% elsif days_since_completion == 1 %>Yesterday<% else %><%= days_since_completion %> days ago<% end %></i></span>
+							<br/>
+							<span style = "opacity: 0;">Last Completed: </span>
+							<% if days_overdue < 0 %>
+								<% if days_overdue == -1 %>
+									Due tomorrow
+								<% else %>
+									Due in <%= days_overdue.abs %> days
+								<% end %>
+							<% else %>
+								<% if days_overdue == 0 %>
+									<b>Due today</b>
+								<% elsif days_overdue == 1 %>
+									<b>Due yesterday</b>
+								<% else %>
+									<b>Due <%= days_overdue %> days ago</b>
+								<% end %>
+							<% end %>
+						</font>
+					</p>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	</div>
+
+
+<script>
+	document.getElementById("home").className = "active"
+</script>

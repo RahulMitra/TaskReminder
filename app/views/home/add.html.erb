@@ -1,0 +1,68 @@
+<div class="container">
+
+  <!-- hero unit -->
+  <div class="hero-unit" style = "padding-top: 20px; width: 900px;" >
+    <h1 style = "font-size: 80px">Add Task</h1>
+	<hr/>
+	<br/>
+	<br/>
+	
+	<form class = "form-horizontal" name="input" action="post_add.html" method="post">	
+		<fieldset>
+			<div class="control-group">
+				<label class="control-label" for="taskName"><p>Task Name:</p></label>
+				<div class="controls">
+					<input type="text" class="input-medium" name="taskName">
+	            </div>
+			</div>
+			<div class="control-group">
+	            <label class="control-label" for="timeOut"><p>Days till timeout: </p></label>
+	            <div class="controls">
+	              	<select name="timeOut" class="span1">
+		                <option>1</option>
+		                <option>2</option>
+		                <option>3</option>
+		                <option>4</option>
+		                <option>5</option>
+						<option>6</option>
+						<option>7</option>
+	              	</select>
+	            </div>
+	          </div>
+			  <div class="control-group">
+	            <label class="control-label" for="lastCompleted"><p>Last Completed: </p></label>
+	            <div class="controls">
+	              	<script>
+						$(function()
+						{
+							$('#datepicker').datepicker();
+						});
+					</script>
+					
+					<div class="input-append date" id="datepicker" data-date="<%=Time.now.getlocal.strftime("%m/%d/%Y")%>">
+					  <input class="span2" size="16" type="text" name="lastCompleted" value="<%=Time.now.getlocal.strftime("%m/%d/%Y")%>">
+					  <span class="add-on"><i class="icon-th"></i></span>
+					</div>
+	            </div>
+	          </div>
+			  <div class="control-group">
+	           <label class="control-label" for= "emailOption"><p>Reminders: </p></label>
+	          <div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" name="textOption" value="text" checked="checked"> Send me reminders by <b>text message</b>
+				</label>
+				<label class="checkbox">
+					<input type="checkbox" name="emailOption" value="email"> Send me reminders by <b>email</b>
+				</label>
+	          </div>
+			</div>
+	          <div class="form-actions">						
+	            <button type="submit" value = "Submit" class="btn btn-primary btn-large">Create Task!</button>
+	          </div>
+	        </fieldset>
+	      </form>	
+  </div>
+
+<script>
+	document.getElementById("add").className = "active"
+</script>

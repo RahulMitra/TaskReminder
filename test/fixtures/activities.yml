@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  numDays: 
+  time: 2012-07-31 23:42:10
+
+two:
+  name: MyString
+  numDays: 
+  time: 2012-07-31 23:42:10

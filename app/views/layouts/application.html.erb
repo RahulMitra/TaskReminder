@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>Task Manager</title>
+  	<%= stylesheet_link_tag    "application", :media => "all" %>
+  	<%= javascript_include_tag "application" %>
+	<%= javascript_include_tag :defaults %>
+  	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+	          <a class="brand" href="/home/index">Task Manager</a>
+	          <ul class="nav">
+					<li id = "home"><a href="/home/index">Home</a></li>
+	              	<li id = "add"><a href="/home/add">Add Task</a></li>
+				  	<li id = "edit"><a href="/home/edit">Edit Tasks</a></li>
+	          </ul>
+			  <ul class="nav pull-right">
+			        <a class="brand"> Current Date: <b><%= formatDay(Time.now.getlocal) %> </b></a>
+			  </ul>	
+	        </div>
+	      </div>
+	    </div>
+<br/>
+<br/>
+<br/>
+<br/>
+	
+<%= yield %>
+
+ <footer>
+    <p>&copy; Rahul Mitra</p>
+  </footer>
+
+</div> <!-- /container -->
+
+</body>
+</html>
