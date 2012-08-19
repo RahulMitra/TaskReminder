@@ -16,14 +16,18 @@ class TextHandlerController < ApplicationController
           redirect_to :controller => 'home', :action => 'post_update', :id => id
           send_text_message("The task #{completed_activity.name} was successfully updated.")
         else
-          send_text_message("Error - \'#{argument}\' was not recognized as a task. No tasks were updated.")
+          send_text_message("Error - \'#{argument}\' was not recognized as a task. No tasks were updated. For a list of tasks, text the word \'tasks\'")
         end
-      elsif message_body[0..3].downcase == "list"
+      elsif message_body[0..4].downcase == "tasks"
         send_list()
       elsif message_body[0..5].downcase == "status"
         send_status()
       elsif message_body[0..7].downcase == "commands"
-        message = "commands:"
+        message = "Commands:"
+        message += "\n------------------------------\n"
+        message += "update [task name]\n"
+        message += "tasks\n"
+        message += "status"
         send_text_message(message)
       else
         send_text_message("Invalid command. For a list of commands, text me the word \'commands\'")
