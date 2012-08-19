@@ -1,0 +1,15 @@
+<div class="modal hide" id="myModal<%=activity.id%>">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Confirmation for <%= activity.name %></h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you completed <%= activity.name %>?</p>
+  </div>
+  <div class="modal-footer">
+	
+	<%= link_to "Yes, I completed #{activity.name}", 	{:controller => 'home', :action => 'post_update', :id => activity.id, :method => "post"},
+														{:class => "btn btn-primary pull-left" } %>
+	<a href="#" class="btn pull-right" data-dismiss="modal">No, close</a>
+  </div>
+</div>

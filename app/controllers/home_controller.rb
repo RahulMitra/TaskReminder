@@ -30,10 +30,6 @@ class HomeController < ApplicationController
     redirect_to :controller => 'home', :action => 'index'
   end
   
-  def edit
-    @activities = Activity.all
-  end
-  
   def post_edit
     activity = Activity.find_by_id(params[:id])
     activity.name = params[:taskName]
@@ -63,16 +59,12 @@ class HomeController < ApplicationController
     redirect_to :controller => 'home', :action => 'index'
   end
   
-  def update
+  def post_update
     activity = Activity.find_by_id(params[:id])
     activity.update_attribute(:time, Time.now.getlocal.to_date)
     activity.save
     redirect_to :controller => 'home', :action => 'index'
   end
-  
-  def edit
-    
-  end  
   
   def login
 
@@ -94,9 +86,7 @@ class HomeController < ApplicationController
   end
   
   def test
-    @activity = Activity.all
     
   end
-  
   
 end
