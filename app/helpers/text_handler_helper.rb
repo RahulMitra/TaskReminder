@@ -93,6 +93,7 @@ module TextHandlerHelper
     message = long_message
     while message.length > 120
       send_text_message(message[0..120])
+      sleep 2.0
       message = message[121..-1]
     end
     send_text_message(message)
