@@ -1,5 +1,6 @@
 class TextHandlerController < ApplicationController
-  def index
+  def remind
+    send_reminders()
   end
   
   def receive
@@ -33,10 +34,6 @@ class TextHandlerController < ApplicationController
         send_text_message("Invalid command. For a list of commands, text me the word \'commands\'")
       end
     end
-  end
-  
-  def test
-    
   end
   
 end

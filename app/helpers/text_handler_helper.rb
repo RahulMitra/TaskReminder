@@ -46,7 +46,7 @@ module TextHandlerHelper
   			  if (!header_sent)
   			    header_message = "#\n"
   			    header_message += "------------------------------\n"
-  			    header_message += "Reminders for #{formatDay(Time.now.getlocal)}\n"
+  			    header_message += "Reminders for #{formatDayNicely(Time.now.getlocal)}\n"
   			    header_message += "The following are overdue:\n"
   			    header_message += "------------------------------"
   			    send_text_message(header_message)
@@ -114,6 +114,10 @@ module TextHandlerHelper
       message = message[num_characters+1..-1]
     end
     send_text_message(message)
+  end
+  
+  def formatDayNicely(timeStamp)
+    return timeStamp.to_datetime.strftime("%A, %b %d")
   end
 
 end
