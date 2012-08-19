@@ -3,11 +3,14 @@ class TextHandlerController < ApplicationController
   end
   
   def receive
+    @number = "14807348445"
     message_body = params["Body"]
     from_number = params["From"]
     
-    message = "You said #{message_body} from #{from_number}"
-    send_text_message(message)
+    if params["From"] == @number
+      message = "Hello Rahul"
+      send_text_message(message)
+    end
   end
   
 end
