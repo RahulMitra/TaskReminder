@@ -8,8 +8,8 @@ class TextHandlerController < ApplicationController
     message_body = params["Body"]
     
     if incoming_number == @number
-      if message_body[0..4].downcase == "update "
-        argument = message_body[5..-1].downcase
+      if message_body[0..6].downcase == "update "
+        argument = message_body[7..-1].downcase
         completed_activity = Activity.find_by_name(argument)
         if !completed_activity.nil?
           id = completed_activity.id
@@ -22,11 +22,11 @@ class TextHandlerController < ApplicationController
         send_list()
       elsif message_body[0..5].downcase == "status"
         send_status()
-      elsif message_body[0..3].downcase == "help"
-        message = "help:"
+      elsif message_body[0..7].downcase == "commands"
+        message = "commands:"
         send_text_message(message)
       else
-        send_text_message("Invalid command. For a list of commands, text me the word help")
+        send_text_message("Invalid command. For a list of commands, text me \'commands\'")
       end
     end
   end
