@@ -3,7 +3,7 @@ class TextHandlerController < ApplicationController
   end
   
   def receive
-    @number = "14807348445"
+    @number = "+14807348445"
     message_body = params["Body"]
     from_number = params["From"]
     
