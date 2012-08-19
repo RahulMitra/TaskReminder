@@ -13,13 +13,13 @@ class HomeController < ApplicationController
     activity.time_out = params[:timeOut]
     activity.time = Date.strptime params[:lastCompleted], "%m/%d/%Y"
     
-    if (params[:textOption])
+    if params[:textOption]
       activity.text_message = true
     else
       activity.text_message = false
     end
     
-    if (params[:emailOption])
+    if params[:emailOption]
       activity.email = true
     else
       activity.email = false
