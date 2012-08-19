@@ -93,5 +93,10 @@ class HomeController < ApplicationController
     end 
   end
   
+  def test
+    @activity = Activity.all
+    
+  end
+  
   
 end

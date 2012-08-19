@@ -7,6 +7,7 @@
 	<br/>
 	<table cellspacing="5" cellpadding="20">
 		
+		<!-- sort the activities according to priority of when they are due -->
 		<% sorted_activities = @activities.sort { |a,b| (Time.now.getlocal.to_date.mjd - b.time.mjd) - b.time_out <=>
 														(Time.now.getlocal.to_date.mjd - a.time.mjd) - a.time_out } %>
  		<% sorted_activities.each do |activity| %>
@@ -17,25 +18,11 @@
 			<tr>
 				<td>
 					
-					<div class="modal hide" id="myModal<%=activity.id%>">
-					  <div class="modal-header">
-					    <button type="button" class="close" data-dismiss="modal">×</button>
-					    <h3>Confirmation for <%= activity.name %></h3>
-					  </div>
-					  <div class="modal-body">
-					    <p>Are you sure you completed <%= activity.name %>?</p>
-					  </div>
-					  <div class="modal-footer">
-						
-						<%= link_to "Yes, I completed #{activity.name}", 	{:controller => 'home', :action => 'update', :id => activity.id, :method => "get"},
-																			{:class => "btn btn-primary" } %>
-						<a href="#" class="btn" data-dismiss="modal">No, close</a>
-						
-					  </div>
-					</div>
+					<%= render :partial => 'update', :locals => {:activity => activity}%>
+					<%= render :partial => 'edit', :locals => {:activity => activity} %>
 										
 					<% if days_overdue >= 0 %>
-						<a class= "btn btn-danger btn-large" style="font-size: 40px" data-toggle="modal" href="#myModal<%=activity.id%>"><%= activity.name %></a>
+						<a class= "btn btn-danger btn-large" id= "test" style="font-size: 40px" data-toggle="modal" href="#myModal<%=activity.id%>"><%= activity.name %></a>
 
 					<% else %>
 						<a class= "btn btn-info btn-large" style="font-size: 40px" data-toggle="modal" href="#myModal<%=activity.id%>"><%= activity.name %></a>
@@ -44,7 +31,6 @@
 				</td>
 				<td>
 					<p>	Last Completed: <b> <%= formatDay(activity.time) %> </b> <span style = "opacity: 0;">-</span>
-					
 					
 					<% if days_overdue >= 0 %>
 						<font color = "red">
@@ -72,12 +58,42 @@
 						</font>
 					</p>
 				</td>
+				<td>
+					<ul class="nav nav-pills">
+						<li class = "active"><a data-toggle="modal" href="#EditModal<%=activity.id%>">Edit Task</a></li>
+					</ul>
+				</td>
 			</tr>
 		<% end %>
 	</table>
 	</div>
 
-
 <script>
 	document.getElementById("home").className = "active"
+	
+	$(function()
+	{
+		$('.datepick').each(function()	
+		{
+		    $(this).datepicker();
+			
+			$(this).datepicker().on('changeDate', function(ev)
+			{
+				var currentTime = new Date()
+				
+				//Invalid Date Chosen
+				if(ev.date.valueOf() > currentTime.valueOf())
+				{
+					$('#alert').show().find('strong').text('Date chosen has not happened yet!');
+				}
+				
+				//Valid Date Chosen
+				else
+				{
+					$('#alert').hide();
+				}
+				$(this).datepicker('hide');
+			});
+		});
+	});
 </script>
