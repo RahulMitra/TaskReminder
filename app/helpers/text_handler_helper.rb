@@ -73,6 +73,22 @@ module TextHandlerHelper
     end
   end  
   
+  def send_list()
+    list = ""
+    Activity.all.each do |activity|
+      list += "\n#{activity.name}"
+    end
+    
+    if list.size == 0
+      send_text_message("You have no tasks in the system!")
+    else
+      message = "The following tasks are in the system:"
+      message += "\n------------------------------\n"
+      message += list
+      send_text_message(message)
+    end
+  end
+  
   def send_text_message(message)
     @twilio_sid = "ACd134e637ea9351e54eb8da2f3599e363"
     @twilio_token = "b6d1bc1f4ba622e28378217432445366"
