@@ -18,10 +18,13 @@ class TextHandlerController < ApplicationController
         else
           send_text_message("Error - #{argument} was not recognized as a task. No tasks were updated.")
         end
-      elsif message_body[0..3].downcase = "list"
+      elsif message_body[0..3].downcase == "list"
         send_list()
       elsif message_body[0..5].downcase == "status"
         send_status()
+      elsif message_body[0..3].downcase == "help"
+        message = "help:"
+        send_text_message(message)
       else
         send_text_message("Invalid command. For a list of commands, text me the word help")
       end
