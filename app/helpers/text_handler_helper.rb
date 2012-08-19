@@ -83,9 +83,9 @@ module TextHandlerHelper
       send_text_message("You have no tasks in the system!")
     else
       message = "The following tasks are in the system:"
-      message += "\n------------------------------\n"
+      message += "\n------------------------------"
       message += list
-      send_text_message(message)
+      send_long_text(message)
     end
   end
   
@@ -106,11 +106,12 @@ module TextHandlerHelper
   end
   
   def send_long_text(long_message)
+    num_characters = 120
     message = long_message
-    while message.length > 120
-      send_text_message(message[0..120])
+    while message.length > num_characters
+      send_text_message(message[0..num_characters])
       sleep 2.0
-      message = message[121..-1]
+      message = message[num_characters+1..-1]
     end
     send_text_message(message)
   end
