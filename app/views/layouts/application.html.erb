@@ -11,16 +11,17 @@
 	      <div class="navbar-inner">
 	        <div class="container">
 	          <a class="brand" href="/home/index">Task Manager</a>
-	          <ul class="nav">
+	          <ul class="nav">		
 					<li id = "home"><a href="/home/index">Home</a></li>
-	              	<li id = "add"><a href="/home/add">Add Task</a></li>
-	          </ul>
+					<li id = "add"><a href = "#AddModal" data-toggle="modal"> Add Task</a></li>						
+	          </ul>	
 			  <ul class="nav pull-right">
 			        <a class="brand"> Current Date: <b><%= formatDay(Time.now.getlocal) %> </b></a>
 			  </ul>	
 	        </div>
 	      </div>
 	    </div>
+		<%= render :partial => 'home/add' %>
 <br/>
 <br/>
 <br/>

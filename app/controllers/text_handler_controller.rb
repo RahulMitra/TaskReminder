@@ -3,6 +3,10 @@ class TextHandlerController < ApplicationController
     send_reminders()
   end
   
+  def nag
+    send_overdue_reminders()
+  end
+  
   def receive
     @number = "+14807348445"
     incoming_number = params["From"]
@@ -20,7 +24,7 @@ class TextHandlerController < ApplicationController
           send_text_message("Error - \'#{argument}\' was not recognized as a task. No tasks were updated. For a list of tasks, text the word \'tasks\'")
         end
       elsif message_body[0..4].downcase == "tasks"
-        send_list()
+        send_task_list()
       elsif message_body[0..5].downcase == "status"
         send_status()
       elsif message_body[0..7].downcase == "commands"
@@ -31,9 +35,9 @@ class TextHandlerController < ApplicationController
         message += "status"
         send_text_message(message)
       else
-        send_text_message("Invalid command. For a list of commands, text me the word \'commands\'")
+        send_text_message("Invalid command. For a list of commands, text the word \'commands\'")
       end
     end
   end
-  
+  render :nothing => true
 end
