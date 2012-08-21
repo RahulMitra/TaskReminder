@@ -1,4 +1,0 @@
-development:
-  from:     'your-from'
-  sid:      'your-sid'
-  token:    'your-token'
