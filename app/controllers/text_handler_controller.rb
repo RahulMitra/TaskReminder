@@ -17,9 +17,8 @@ class TextHandlerController < ApplicationController
         argument = message_body[7..-1]
         completed_activity = Activity.find_by_name(argument)
         if !completed_activity.nil?
-          #completed_activity.update_attribute(:time, Time.now.getlocal.to_date)
-          #completed_activity.save
-          redirect_to :controller => 'home', :action => 'post_update', :id => id
+          completed_activity.update_attribute(:time, Time.now.getlocal.to_date)
+          completed_activity.save
           send_text_message("The task #{completed_activity.name} was successfully updated.")
         else
           send_text_message("Error - \'#{argument}\' was not recognized as a task. No tasks were updated. For a list of tasks, text the word \'tasks\'")
