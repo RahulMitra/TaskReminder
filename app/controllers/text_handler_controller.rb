@@ -17,7 +17,8 @@ class TextHandlerController < ApplicationController
         argument = message_body[7..-1]
         completed_activity = Activity.find_by_name(argument)
         if !completed_activity.nil?
-          id = completed_activity.id
+          #completed_activity.update_attribute(:time, Time.now.getlocal.to_date)
+          #completed_activity.save
           redirect_to :controller => 'home', :action => 'post_update', :id => id
           send_text_message("The task #{completed_activity.name} was successfully updated.")
         else
