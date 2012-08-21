@@ -39,7 +39,6 @@ class TextHandlerController < ApplicationController
         send_text_message("Invalid command. For a list of commands, text the word \'commands\'")
       end
     end
-    render :nothing => true
   end
 
 end
