@@ -106,17 +106,12 @@ module TextHandlerHelper
   end
   
   def send_text_message(message)
-    twilio_sid = TWILIO_CONFIG['sid']
-    twilio_token = TWILIO_CONFIG['token']
-    twilio_phone_number = TWILIO_CONFIG['from']
-    number_to_send_to = "4807348445"
-
+    twilio_sid          = 'ACd134e637ea9351e54eb8da2f3599e363'
+    twilio_token        = 'b6d1bc1f4ba622e28378217432445366'
+    twilio_phone_number = '6027345137'
+    number_to_send_to =   '4807348445'
     twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)    
-    twilio_client.account.sms.messages.create(
-      :from => "+1#{twilio_phone_number}",
-      :to => number_to_send_to,
-      :body => message
-    )
+    twilio_client.account.sms.messages.create(:from => "+1#{twilio_phone_number}", :to => number_to_send_to, :body => message)
   end
   
   def send_long_text(long_message)
