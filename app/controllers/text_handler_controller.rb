@@ -20,6 +20,7 @@ class TextHandlerController < ApplicationController
           completed_activity.update_attribute(:time, Time.now.getlocal.to_date)
           completed_activity.save
           send_text_message("The task #{completed_activity.name} was successfully updated.")
+          #send_status()
         else
           send_text_message("Error - \'#{argument}\' was not recognized as a task. No tasks were updated. For a list of tasks, text the word \'tasks\'")
         end
@@ -39,7 +40,6 @@ class TextHandlerController < ApplicationController
       end
     end
     render :xml => {:result => "OK"}.to_xml
-    #head :ok
   end
-
+    
 end
