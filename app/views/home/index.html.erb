@@ -15,9 +15,9 @@
 			<% days_since_completion = Time.now.getlocal.to_date.mjd - activity.time.mjd %>
 			<% days_overdue = days_since_completion - activity.time_out %>			
 			
-			<tr>
-				<td>
-					
+			
+			<tr id = "rowid<%= activity.id %>">
+				<td>		
 					<%= render :partial => 'update', :locals => {:activity => activity}%>
 					<%= render :partial => 'edit', :locals => {:activity => activity} %>
 										
@@ -29,7 +29,7 @@
 																							
 					<% end %>
 				</td>
-				<td>
+				<td nowrap="nowrap"	>
 					<p>	Last Completed: <b> <%= formatDay(activity.time) %> </b> <span style = "opacity: 0;">-</span>
 					
 					<% if days_overdue >= 0 %>
@@ -58,7 +58,7 @@
 						</font>
 					</p>
 				</td>
-				<td>
+				<td nowrap="nowrap">
 					<ul class="nav nav-pills">
 						<li class = "active"><a data-toggle="modal" href="#EditModal<%=activity.id%>">Edit Task</a></li>
 					</ul>
@@ -79,6 +79,7 @@
 			
 			$(this).datepicker().on('changeDate', function(ev)
 			{
+				/*
 				var currentTime = new Date()
 				
 				//Invalid Date Chosen
@@ -92,8 +93,22 @@
 				{
 					$('#alert').hide();
 				}
+				*/
 				$(this).datepicker('hide');
 			});
 		});
 	});
+</script>
+
+<script src="http://js.pusher.com/1.12/pusher.min.js"></script>
+<script type="text/javascript">
+	var pusher = new Pusher('<%= Pusher.key %>');
+  	var channel = pusher.subscribe('taskreminder');
+  	channel.bind('update', function(data)
+	{
+		location.reload();
+		//newRow = "<tr><td>sdfsdf</td><td>sdfsdf</td><td>sdfsdf</td></tr>";
+		//newRow = "<tr><td>"+ data.one +"</td>" + "<td>" + data.two + "</td>" + "<td>" + data.three "</td></tr>";
+		//$('#rowid3').replaceWith(newRow);
+  	});
 </script>

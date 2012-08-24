@@ -34,4 +34,10 @@ Reminder::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  require 'pusher'
+   
+  Pusher.app_id = '26380'
+  Pusher.key    = '3d19da732c7a8f076c13'
+  Pusher.secret = '32aa965a09a8262f1761'
 end
