@@ -115,7 +115,7 @@ module TextHandlerHelper
   end
   
   def send_long_text(long_message)
-    num_characters = 160
+    num_characters = 155
     message = long_message
     while message.length > num_characters
       send_text_message(message[0..num_characters])
