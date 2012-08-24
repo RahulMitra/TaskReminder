@@ -27,6 +27,7 @@ class HomeController < ApplicationController
       
     activity.save
     
+    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
   end
   
@@ -49,6 +50,7 @@ class HomeController < ApplicationController
     end
     
     activity.save
+    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
     
   end
@@ -56,6 +58,7 @@ class HomeController < ApplicationController
   def post_delete
     activity = Activity.find_by_id(params[:id])
     activity.delete
+    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
   end
   
@@ -63,11 +66,7 @@ class HomeController < ApplicationController
     activity = Activity.find_by_id(params[:id])
     activity.update_attribute(:time, Time.now.getlocal.to_date)
     activity.save
-    Pusher['taskreminder'].trigger('update', {
-      :one => "one",
-      :two => "two",
-      :three => "three"
-    })
+    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
   end
   
@@ -88,10 +87,6 @@ class HomeController < ApplicationController
         flash[:message] = "Incorrect Password"
         redirect_to :back  
     end 
-  end
-  
-  def test
-
   end
   
 end
