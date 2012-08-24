@@ -15,14 +15,7 @@ class TextHandlerController < ApplicationController
     if incoming_number == @number
       if message_body[0..6].downcase == "update "
         argument = message_body[7..-1]
-        #completed_activity = Activity.find_by_name(argument)
-        completed_activity = nil
-        Activity.each do |activity|
-          if activity.name.downcase == argument.downcase
-            completed_activity = activity
-            break
-          end
-        end
+        completed_activity = Activity.find_by_name(argument)
         if !completed_activity.nil?
           completed_activity.update_attribute(:time, Time.now.getlocal.to_date)
           completed_activity.save
