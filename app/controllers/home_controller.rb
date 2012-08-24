@@ -27,8 +27,8 @@ class HomeController < ApplicationController
       
     activity.save
     
-    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
+    Pusher['taskreminder'].trigger('update', {})
   end
   
   def post_edit
@@ -50,24 +50,23 @@ class HomeController < ApplicationController
     end
     
     activity.save
-    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
-    
+    Pusher['taskreminder'].trigger('update', {})
   end
   
   def post_delete
     activity = Activity.find_by_id(params[:id])
     activity.delete
-    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
+    Pusher['taskreminder'].trigger('update', {})
   end
   
   def post_update
     activity = Activity.find_by_id(params[:id])
     activity.update_attribute(:time, Time.now.getlocal.to_date)
     activity.save
-    Pusher['taskreminder'].trigger('update', {})
     redirect_to :controller => 'home', :action => 'index'
+    Pusher['taskreminder'].trigger('update', {})
   end
   
   def login
