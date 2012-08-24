@@ -18,7 +18,7 @@ class TextHandlerController < ApplicationController
         #completed_activity = Activity.find_by_name(argument)
         
         completed_activity = nil
-        Activity.each do |activity|
+        Activity.all.each do |activity|
           if activity.name.downcase == argument.downcase
             completed_activity = activity
           end
