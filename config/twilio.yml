@@ -1,0 +1,9 @@
+development:
+    from: '6027345137'
+    sid: 'ACd134e637ea9351e54eb8da2f3599e363'
+    token: 'b6d1bc1f4ba622e28378217432445366'
+  
+production:
+    from: '6027345137'
+    sid: 'ACd134e637ea9351e54eb8da2f3599e363'
+    token: 'b6d1bc1f4ba622e28378217432445366'
