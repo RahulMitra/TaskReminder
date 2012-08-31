@@ -33,7 +33,7 @@ class UserController < ApplicationController
   
   def post_register
     if @user = User.create(params[:user])
-      Text.send_text_message("Thank you for signing up! This number has been successfully linked to your task reminder account.", @user.number)
+      Text.send_text_message("Thank you for signing up for task reminder, #{@user.first_name}! This number has been successfully linked to your task reminder account.", @user.number)
       flash[:notice] = "Account Successfully Created!"
       session[:user_id] = @user.id
       redirect_to :controller => "home", :action => "index"
@@ -61,5 +61,15 @@ class UserController < ApplicationController
     else
       # error handling
     end
+  end
+  
+  def post_delete
+    user = User.find_by_id(session[:user_id])
+    user.activities.all.each do |activity|
+      activity.delete
+    end
+    user.delete
+    reset_session
+    redirect_to :controller => 'user', :action => 'login'
   end
 end

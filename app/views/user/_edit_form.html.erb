@@ -25,7 +25,8 @@
 	</div>
 	<div class="control-group">
 		<div class="controls">
-			<%= form.submit "Save Settings!", :class => "btn btn-primary btn-large" %>
+			<%= submit_tag_to_action "Save Changes", "/user/post_edit", {:class => "btn btn-primary btn-large"} %>
+			<%= submit_tag_to_action "Delete Account", "/user/post_delete", {:class => "btn btn-primary btn-large btn-danger"} %>
 		</div>
 	</div>
 <% end %>
