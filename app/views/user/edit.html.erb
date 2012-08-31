@@ -1,0 +1,9 @@
+<div class="container">
+	
+  	<div class="hero-unit" style = "padding-top: 20px; width: 950px;">
+		<h1><%= @user.full_name() %>&#39;s Settings</h1>
+		<br/>
+		<hr/>
+		<%= render :partial => 'edit_form', :locals => {:user => @user} %>
+	</div>
+	

@@ -1,0 +1,28 @@
+<h1>Login</h1>
+<% if flash[:message] %>
+	<br/>
+	<div class="alert alert-error">
+		<%= flash[:message] %>
+	</div>
+<% end %>
+<hr/>
+<br/>
+<%= form_for :login, :url => {:controller => "user", :action => "post_login" }, :html => {:class => "form-horizontal"} do |form| %>
+	<div class="control-group">
+		<%= form.label "Username or cell #", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :input, :placeholder => "Username or Cell number", :class => 'span3'%>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Password", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.password_field :password, :placeholder => "Password", :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<%= form.submit "Login", :class => "btn btn-primary btn-large" %>
+		</div>
+	</div>
+<% end %>

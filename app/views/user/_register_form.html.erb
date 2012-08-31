@@ -1,0 +1,55 @@
+<h2 id = "body-copy"> Don't have an account? Register here! </h2>
+<% if flash[:notice] %>
+	<div class="alert alert-error">	
+		The following errors occurred:
+		<ul>
+			<% flash[:notice].each do |message| %>
+				<li> <%= message %> </li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+<hr/>
+<%= form_for @user, :url => {:controller => "user", :action => "post_register"}, :html => {:class => "form-horizontal"}, :validate => true do |form| %>
+	<div class="control-group">
+		<%= form.label "First Name", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :first_name, :placeholder => "First Name", :class => 'span3' %> 
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Last Name", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :last_name, :placeholder => "Last Name", :class => 'span3'%>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Username", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :username, :placeholder => "Username", :class => 'span3'%>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Cell Number", :class => "control-label" %>
+		<div class="controls">
+    		<%= form.text_field :number, :placeholder => "10-digit cell", :class => "span3" %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Password", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.password_field :password, :placeholder => "Password", :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Confirm Password", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.password_field :password_confirmation, :placeholder => "Confirm Password", :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<%= form.submit "Create Account!", :class => "btn btn-primary btn-large" %>
+		</div>
+	</div>
+<% end %>

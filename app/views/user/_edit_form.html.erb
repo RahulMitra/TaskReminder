@@ -1,0 +1,31 @@
+<%= form_for @user, :url => {:controller => "user", :action => "post_edit"}, :html => {:class => "form-horizontal"}, :validate => true do |form| %>
+	<div class="control-group">
+		<%= form.label "First Name", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :first_name, :value => user.first_name, :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Last Name", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :last_name, :value => user.last_name, :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Username", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :username, :value => user.username, :class => 'span3' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= form.label "Cell number", :class => "control-label" %>
+		<div class="controls">
+	    	<%= form.text_field :number, :value => user.number, :class => "span3" %>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<%= form.submit "Save Settings!", :class => "btn btn-primary btn-large" %>
+		</div>
+	</div>
+<% end %>
