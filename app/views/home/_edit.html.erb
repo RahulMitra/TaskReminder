@@ -1,67 +1,58 @@
 <div class="modal hide" id="EditModal<%=activity.id%>">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Edit <%= activity.name %></h3>
-  </div>
-  <div class="modal-body">
-		<form class = "form-horizontal" name="input<%=activity.id%>" action="/home/post_edit.html" method="post">	
-				<div class="control-group">
-					<label class="control-label" for="taskName">Task Name:</label>
-					<div class="controls">
-						<input type="text" class="input-large" name="taskName" value = "<%= activity.name %>">
-		            </div>
-				</div>
-				<div class="control-group">
-		            <label class="control-label" for="timeOut">Days till timeout: </label>
-		            <div class="controls">
-		              	<select name="timeOut" class="span1">
-							<% (1..7).each do |i| %>
-								<% if i == activity.time_out %>
-									<option selected = "selected"><%= i %></option>
-								<% else %>
-									<option><%= i %></option>
-								<% end %>
-							<% end %>
-		              	</select>
-		            </div>
-		          </div>
-				  <div class="control-group">
-		            <label class="control-label" for="lastCompleted">Last Completed: </label>
-		            <div class="controls">						
-						<div class="input-append date datepick" data-date="<%=activity.time.strftime("%m/%d/%Y")%>">
-						  <input class="span2" size="16" type="text" name="lastCompleted" value="<%=activity.time.strftime("%m/%d/%Y")%>">
-						  <span class="add-on"><i class="icon-th"></i></span>
-						</div>
-		            </div>
-		          </div>
-				 <div class="control-group">
-		           <label class="control-label" for= "optionsCheckbox">Reminders: </label>
-		          <div class="controls">
-					<label class="checkbox">
-						<% if activity.text_message %>
-							<input type="checkbox" name="textOption" value="text" checked = "checked"> Send me reminders by <b>text message</b>
-						<% else %>
-							<input type="checkbox" name="textOption" value="text"> Send me reminders by <b>text message</b>
-						<% end %>
-					</label>
-					<label class="checkbox">
-						<% if activity.email %>
-							<input type="checkbox" name="emailOption" value="email" checked = "checked"> Send me reminders by <b>email</b>
-						<% else %>
-							<input type="checkbox" name="emailOption" value="email"> Send me reminders by <b>email</b>
-						<% end %>
-					</label>
-		          </div>
-					<div class="alert alert-error" id="alert" style="display:none;">
-						<strong>Error Message</strong>
-					</div>
-				</div>
-				<input type="hidden" name="id" value="<%=activity.id%>">
-  			</div>
-  			<div class="modal-footer">
-				<button type="submit" value = "Submit" class="btn btn-primary btn-large pull-left">Save Changes</button>
-				<button class="btn btn-danger btn-large pull-right" onclick="var r = confirm('Are you sure?'); if(r==true){input<%=activity.id%>.action='/home/post_delete.html'}">Delete Task</button>
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal">×</button>
+    	<h3>Edit <%= activity.name %></h3>
+  	</div>
+	<div class="modal-body">
+		<%= form_for :edit, :url => {:controller => "activity", :action => "post_edit"}, :html => {:class => "form-horizontal"} do |form| %>
+		<div class="control-group">
+			<%= form.label "Task Name:", :class => "control-label" %>
+			<div class="controls">
+				<%= form.text_field :task_name,  {:class => 'input-medium', :value => activity.name} %>
 			</div>
-		</form>
-  </div>
+		</div>
+		<div class="control-group">
+			<%= form.label "Days till timeout:", :class => "control-label" %>
+		    <div class="controls">
+				<%= form.select :time_out, 1..10, {:selected => activity.time_out}, :class => 'span1' %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= form.label "Last Completed:", :class => "control-label" %>
+			<div class="controls">						
+				<div class="input-append date datepick" data-date="<%=activity.time.strftime("%m/%d/%Y")%>">
+					<%= form.text_field :last_completed, :value => activity.time.strftime("%m/%d/%Y"), :class => 'span2' %>
+					<span class="add-on"><i class="icon-th"></i></span>
+				</div>
+		   	</div>
+		</div>
+		<div class="control-group">
+			<%= form.label "Reminders:", :class => "control-label" %>
+		    <div class="controls">
+				<label class="checkbox">
+					<% if activity.text_message %>
+						<%= form.check_box :text_option, {:checked => "checked"} %> Send me reminders by <b>text message</b>
+					<% else %>
+						<%= form.check_box :text_option, {} %> Send me reminders by <b>text message</b>
+					<% end %>
+				</label>
+				<label class="checkbox">
+					<% if activity.email %>
+						<%= form.check_box :email_option, {:checked => "checked"} %> Send me reminders by <b>email</b>
+					<% else %>
+						<%= form.check_box :email_option, {} %> Send me reminders by <b>email</b>
+					<% end %>
+				</label>
+		   	</div>
+			<div class="alert alert-error" id="alert" style="display:none;">
+				<strong>Error Message</strong>
+			</div>
+		</div>
+		<%= form.hidden_field :id, :value => activity.id %>
+  	</div>
+  	<div class="modal-footer">
+		<%= submit_tag_to_action "Save Changes", "/activity/post_edit", {:class => "btn btn-primary btn-large pull-left"} %>
+		<%= submit_tag_to_action "Delete Task", "/activity/post_delete", {:class => "btn btn-danger btn-large pull-right"} %>
+	</div>
+	<% end %>
 </div>

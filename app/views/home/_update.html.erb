@@ -8,7 +8,7 @@
   </div>
   <div class="modal-footer">
 	
-	<%= link_to "Yes, I completed #{activity.name}", 	{:controller => 'home', :action => 'post_update', :id => activity.id, :method => "post"},
+	<%= link_to "Yes, I completed #{activity.name}", 	{:controller => 'activity', :action => 'post_update', :id => activity.id, :method => "post"},
 														{:class => "btn btn-primary pull-left" } %>
 	<a href="#" class="btn pull-right" data-dismiss="modal">No, close</a>
   </div>

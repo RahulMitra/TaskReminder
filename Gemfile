@@ -31,6 +31,7 @@ end
 
 gem 'jquery-rails'
 gem 'pusher'
+gem 'client_side_validations' #http://railscasts.com/episodes/263-client-side-validations?view=asciicast
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,11 +1,19 @@
-desc "This task is called by the Heroku scheduler add-on. It sends the daily reminder list."
+desc "Sends a compiled list of tasks due today or overdue."
 task :remind => :environment do
-  send_text = TextHandlerController.new
-  send_text.remind()
+  Text.send_reminder("4807348445")
 end
 
-desc "This task is called by the Heroku scheduler add-on. It sends out extra naggy reminders."
+desc "Sends individual reminders for each overdue task."
 task :nag => :environment do
-  send_text = TextHandlerController.new
-  send_text.nag()
+  Text.send_overdue_reminders("4807348445")
+end
+
+desc "Sends the status of all tasks in system."
+task :status => :environment do
+  Text.send_status("4807348445")
+end
+
+desc "Sends the names of all tasks in system."
+task :list => :environment do
+  Text.send_task_list("4807348445")
 end

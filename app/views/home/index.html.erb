@@ -2,19 +2,38 @@
 
   <!-- hero unit -->
   <div class="hero-unit" style = "padding-top: 20px; width: 950px;">
-    <h1 style = "font-size: 80px">Tasks:</h1>
+	<h1><%= @user.full_name() %>&#39;s Tasks</h1>
+	<h2><%=formatDay(Time.now.getlocal)%></h2>
 	<hr/>
-	<br/>
+	
+	<%= render :partial => 'add' %>
 	<table cellspacing="5" cellpadding="20">
-		
-		<!-- sort the activities according to priority of when they are due -->
+		<tr>			
+			<td></td>
+			<td></td>
+			<td nowrap = "nowrap">				
+				<a href = "#AddModal" class="btn btn-inverse" data-toggle="modal" style = "color: white;">Add Task</a>
+			</td>			
+		</tr>
+		<!-- sort and place the activities according to priority of when they are due -->
 		<% sorted_activities = @activities.sort { |a,b| (Time.now.getlocal.to_date.mjd - b.time.mjd) - b.time_out <=>
 														(Time.now.getlocal.to_date.mjd - a.time.mjd) - a.time_out } %>
  		<% sorted_activities.each do |activity| %>
 			<%= render :partial => 'create_row', :locals => {:activity => activity} %>
 		<% end %>
+		
+		<tr>			
+			<td nowrap = "nowrap">
+			<%= link_to "Send Status Text", {:controller => 'text', :action => 'status', :method => "post"}, {:class => "btn btn-inverse" } %>
+			<%= link_to "Send Reminder Text", {:controller => 'text', :action => 'remind', :method => "post"}, {:class => "btn btn-inverse" } %>
+			<%= link_to "Send Overdue Text", {:controller => 'text', :action => 'overdue', :method => "post"}, {:class => "btn btn-inverse" } %>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+		
 	</table>
-	</div>
+ </div>
 
 <script>
 	document.getElementById("home").className = "active"

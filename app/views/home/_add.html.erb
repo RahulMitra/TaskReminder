@@ -4,63 +4,54 @@
     <h3>Add Task</h3>
   </div>
   <div class="modal-body">
-	<form class = "form-horizontal" name="input" action="/home/post_add.html" method="post">	
+	<%= form_for :new, :url => {:controller => "activity", :action => "post_add"}, :html => {:class => "form-horizontal"} do |form| %>
 		<div class="control-group">
-			<label class="control-label" for="taskName"><p>Task Name:</p></label>
+			<%= form.label "Task Name:", :class => "control-label" %>
 			<div class="controls">
-				<input type="text" class="input-medium" name="taskName">
+				<%= form.text_field :task_name, {:class => 'input-medium'} %>
+		    </div>
+		</div> 
+		<div class="control-group">
+			<%= form.label "Days till timeout:", :class => "control-label" %>
+            <div class="controls">
+				<%= form.select :time_out, 1..10, {:selected => 4}, :class => 'span1' %>
             </div>
 		</div>
 		<div class="control-group">
-            <label class="control-label" for="timeOut"><p>Days till timeout: </p></label>
+			<%= form.label "Last Completed:", :class => "control-label" %>
             <div class="controls">
-              	<select name="timeOut" class="span1">
-	                <option>1</option>
-	                <option>2</option>
-	                <option>3</option>
-	                <option selected = "selected">4</option>
-	                <option>5</option>
-					<option>6</option>
-					<option>7</option>
-              	</select>
-            </div>
-          </div>
-		  <div class="control-group">
-            <label class="control-label" for="lastCompleted"><p>Last Completed: </p></label>
-            <div class="controls">
-              	<script>
-					$(function()
-					{
-						$('#datepicker').datepicker();
-						
-						$('#datepicker').datepicker().on('changeDate', function(ev)
-						{
-							$('#datepicker').datepicker('hide');
-						});
-					});
-				</script>
-				
 				<div class="input-append date" id="datepicker" data-date="<%=Time.now.getlocal.strftime("%m/%d/%Y")%>">
-				  <input class="span2" size="16" type="text" name="lastCompleted" value="<%=Time.now.getlocal.strftime("%m/%d/%Y")%>">
-				  <span class="add-on"><i class="icon-th"></i></span>
+					<%= form.text_field :last_completed, :value => Time.now.getlocal.strftime("%m/%d/%Y"), :class => 'span2' %>
+					<span class="add-on"><i class="icon-th"></i></span>
 				</div>
             </div>
-          </div>
-		  <div class="control-group">
-           <label class="control-label" for= "emailOption"><p>Reminders: </p></label>
-          <div class="controls">
-			<label class="checkbox">
-				<input type="checkbox" name="textOption" value="text" checked="checked"> Send me reminders by <b>text message</b>
-			</label>
-			<label class="checkbox">
-				<input type="checkbox" name="emailOption" value="email"> Send me reminders by <b>email</b>
-			</label>
-          </div>
-		</div>
-		</div>
-		<div class="modal-footer">
-            <button type="submit" value = "Submit" class="btn btn-primary btn-large">Create Task!</button>
         </div>
-	</form>
-  </div>
+		<div class="control-group">		
+			<%= form.label "Reminders:", :class => "control-label" %>
+			<div class="controls">
+				<label class="checkbox">
+					<%= form.check_box :text_option, {:checked => "checked"} %> Send me reminders by <b>text message</b>
+				</label>
+				<label class="checkbox">
+					<%= form.check_box :email_option, {} %> Send me reminders by <b>email</b>
+				</label>
+          	</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<%= form.submit "Create Task!", :class => "btn btn-primary btn-large" %>
+	</div>
+	<% end %>
 </div>
+
+<script>
+	$(function()
+	{
+		$('#datepicker').datepicker();
+		
+		$('#datepicker').datepicker().on('changeDate', function(ev)
+		{
+			$('#datepicker').datepicker('hide');
+		});
+	});
+</script>

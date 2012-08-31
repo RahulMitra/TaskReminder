@@ -8,25 +8,54 @@
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
-	      <div class="navbar-inner">
-	        <div class="container">
-	          <a class="brand" href="/home/index">Task Manager</a>
-	          <ul class="nav">		
-					<li id = "home"><a href="/home/index">Home</a></li>
-					<li id = "add"><a href = "#AddModal" data-toggle="modal"> Add Task</a></li>						
-	          </ul>	
-			  <ul class="nav pull-right">
-			        <a class="brand"> Current Date: <b><%= formatDay(Time.now.getlocal) %> </b></a>
-			  </ul>	
-	        </div>
+	  <div class="navbar-inner">
+
+	    <div class="container">
+	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </a>
+	      <a class="brand" href="/home/index">Task Manager</a>
+		
+		  <!-- Not logged in -->
+		  <% if session[:user_id].nil? %>
+			<ul class="nav pull-right">
+				<li id = "login"><a href="/user/login">Log In / Register</a></li>					
+			</ul>
+			
+		 <!-- Logged in --> 
+		  <% else %>
+		  <div class="btn-group pull-right">
+	        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			  <% @username = User.find_by_id(session[:user_id]).username %>
+			  <% @number = format_number(User.find_by_id(session[:user_id]).number) %>
+	          <i class="icon-user"></i> <b><%= @username %></b> <%= @number %>
+	          <span class="caret"></span>
+	        </a>
+	        <ul class="dropdown-menu">
+	          <li><a href="/user/edit">Settings</a></li>
+	          <li class="divider"></li>
+	          <li><a href="/user/logout">Sign Out</a></li>
+	        </ul>
+		  </div>
+		  <div class="nav-collapse">
+	        <ul class="nav">
+				<li id = "home"><a href="/home/index">Home</a></li>
+	      	</ul>
 	      </div>
+		  <% end %>
 	    </div>
-		<%= render :partial => 'home/add' %>
-<br/>
-<br/>
-<br/>
-<br/>
+	  </div>
+	</div>
 	
+	<% if !session[:username].nil? %>
+		<%= render :partial => 'activity/add' %>
+	<% end %>
+<br/>
+<br/>
+<br/>
+<br/>
 <%= yield %>
 
  <footer>
