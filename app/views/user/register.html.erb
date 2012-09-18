@@ -1,0 +1,39 @@
+<div class="container">
+	
+	<div class="hero-unit" style = "padding-top: 20px; width: 950px;">
+      <h1>Welcome to Task Reminder</h1>
+	  <br/>
+      <p>Task Reminder was designed to help you keep up with all those essential tasks and chores that need to be done regularly. When life gets busy and these tasks start to slip your mind, Task Reminder stays on top of you by keeping track of when your tasks need to be done, texting you reminders when necessary. The best part is that everything is managed through texting. Once you've added your tasks and settings online, you can manage everything through texting! It's hassle-free, simple, and incredibly effective! Sign up now and easily stay on top of your routine!</p>
+      <a class="btn btn-primary btn-large" href = "/home/about">How It Works</a>
+      <a class="btn btn-primary btn-large" href = "#register">Register Now!</a>
+
+	</div>
+
+    <div class="row">
+      <div class="span6">
+        <h2>Receive Text Reminders</h2>
+        <p>Task Reminder will text you a reminder message in the morning when your tasks need to be done. If a task is being neglected, Task Reminder will send multiple reminders to ensure that it gets done. It will keep your life organized, and stay on top of you until you've finish all your tasks! </p>
+		<img src = "/reminder.png" width = "200px">
+		<img src = "/overdue.png" width = "200px">
+      </div>
+      <div class="span6">
+        <h2>Update Tasks Via Text</h2>
+        <p>When you register, Task Reminder assigns you a number, and always texts you with this number. Communicate with the system by simply texting this number. Let it know that you've completed a task, or request to see all your tasks. It's simply, easy, and no smart phone required! </p>
+		<img src = "/status.png" width = "200px">
+		<img src = "/update.png" width = "200px">
+     </div>
+    </div>
+	<br/>
+	<br/>
+	
+	<div class="hero-unit" style = "padding-top: 20px; width: 950px;">
+		<a name = "register"></a>
+		<%= render :partial => 'register_form' %>
+	</div>
+	<br/>
+	<br/>
+	
+	<script>
+	$('#login').addClass("active")
+	</script>
+	

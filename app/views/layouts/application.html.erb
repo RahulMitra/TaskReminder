@@ -9,44 +9,53 @@
 <body>
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
-
 	    <div class="container">
-	      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </a>
-	      <a class="brand" href="/home/index">Task Manager</a>
-		
-		  <!-- Not logged in -->
-		  <% if session[:user_id].nil? %>
-			<ul class="nav pull-right">
-				<li id = "login"><a href="/user/login">Log In / Register</a></li>					
-			</ul>
-			
-		 <!-- Logged in --> 
-		  <% else %>
-		  <div class="btn-group pull-right">
-	        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			  <% @username = User.find_by_id(session[:user_id]).username %>
-			  <% @number = format_number(User.find_by_id(session[:user_id]).number) %>
-	          <i class="icon-user"></i> <b><%= @username %></b> <%= @number %>
-	          <span class="caret"></span>
-	        </a>
-	        <ul class="dropdown-menu">
-	          <li><a href="/user/edit">Settings</a></li>
-	          <li class="divider"></li>
-	          <li><a href="/user/logout">Sign Out</a></li>
-	        </ul>
-		  </div>
-		  <div class="nav-collapse">
-	        <ul class="nav">
-				<li id = "home"><a href="/home/index">Home</a></li>
-	      	</ul>
-	      </div>
-		  <% end %>
-	    </div>
-	  </div>
+			<div class="navbar navbar-inverse navbar-fixed-top">
+			      <div class="navbar-inner">
+			        <div class="container">
+			          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			          </a>
+			          <a class="brand">Task Reminder</a>
+			          <div class="nav-collapse collapse">
+						<% if session[:user_id].nil? %>
+			            	<ul class="nav">
+				              <li id = "home" class="active"><a href="/home/index">Home</a></li>
+				              <li id = "about"><a href="/home/about">How It Works</a></li>
+				            </ul>				
+							<%= form_for :login, :url => {:controller => "user", :action => "post_login" }, :html => {:class => "navbar-form pull-right"} do |form|%>
+								<%= form.text_field :input, :placeholder => "Username or Cell", :class => 'span2'%>
+								<%= form.password_field :password, :placeholder => "Password", :class => 'span2' %>	
+								<%= form.submit "Sign in", :class => "btn" %>
+							<% end %>
+							
+						<% else %>
+							<ul class="nav">
+				              <li id = "home" class="active"><a href="/home/index">Home</a></li>
+				              <li id = "about"><a href="/home/about">How It Works</a></li>
+				            </ul>
+				            <div class="btn-group pull-right">
+						        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								  <% @username = User.find_by_id(session[:user_id]).username %>
+								  <% @number = format_number(User.find_by_id(session[:user_id]).number) %>
+						          <i class="icon-user"></i> <b><%= @username %></b> <%= @number %>
+						          <span class="caret"></span>
+						        </a>
+						        <ul class="dropdown-menu">
+						          <li><a href="/user/edit">Settings</a></li>
+						          <li class="divider"></li>
+						          <li><a href="/user/logout">Sign Out</a></li>
+						        </ul>
+							 </div>
+						<% end %>
+			          	</div><!--/.nav-collapse -->
+			        </div>
+			      </div>
+			    </div>
+			</div>
+		</div>
 	</div>
 	
 	<% if !session[:username].nil? %>
@@ -59,7 +68,7 @@
 <%= yield %>
 
  <footer>
-    <p>&copy; Rahul Mitra</p>
+    <p>Created by <a href = "http://www.rahulmitra.net">Rahul Mitra</a></p>
   </footer>
 
 </div> <!-- /container -->

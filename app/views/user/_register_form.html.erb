@@ -1,4 +1,5 @@
-<h2 id = "body-copy"> Don't have an account? Register here! </h2>
+<h1> Register now!</h1>
+<h2> It's free, simple, and incredibly useful!</h2>
 <% if flash[:notice] %>
 	<div class="alert alert-error">	
 		The following errors occurred:
@@ -9,7 +10,7 @@
 		</ul>
 	</div>
 <% end %>
-<hr/>
+<br/>
 <%= form_for @user, :url => {:controller => "user", :action => "post_register"}, :html => {:class => "form-horizontal"}, :validate => true do |form| %>
 	<div class="control-group">
 		<%= form.label "First Name", :class => "control-label" %>

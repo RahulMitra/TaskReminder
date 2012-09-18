@@ -1,12 +1,5 @@
 class UserController < ApplicationController
-  def login
-    if !session[:user_id].nil?
-      redirect_to :controller => "home", :action => "index"
-    else
-      @user = User.new
-    end
-  end
-  
+    
   def post_login   
     user = User.find_by_username(params[:login][:input]) || User.find_by_number(params[:login][:input])
      
@@ -28,7 +21,11 @@ class UserController < ApplicationController
   end
   
   def register
-    @user = User.new
+    if !session[:user_id].nil?
+      redirect_to :controller => "home", :action => "index"
+    else
+      @user = User.new
+    end
   end
   
   def post_register
